@@ -125,9 +125,10 @@ class Robot
     {
         foreach ($this->backoffStrategy as $strategySteps) {
             if ($this->executeBackOffCommandSequence($strategySteps)) {
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     private function back(string $direction)
@@ -234,7 +235,6 @@ class Robot
                 case 'TR':
                     $this->changeDirection($command);
                     $this->recalculateBattery($command);
-
                     return true;
                     break;
 
@@ -244,11 +244,13 @@ class Robot
                         return true;
                         break;
                     } else {
-                        $this->initiateBackOffStrategy();
+                        if ($this->initiateBackOffStrategy() === false){
+                            return false;
+                        }
                     }
                     // no break
                 case 'B':
-                    return ($this->battery >= $this->costOfOperation['B']) ? true : false;
+                   // return ($this->battery >= $this->costOfOperation['B']) ? true : false;
                     break;
                 case 'C':
                     $this->addCellToCleaned();
@@ -257,9 +259,12 @@ class Robot
                     return true;
                     break;
             }
+            return true;
+
         } else {
             die('battery off');
         }
+
     }
 
     public function executeCommandSequence(array $commands)
@@ -268,7 +273,9 @@ class Robot
         // cell to visited ones
         $this->addCellToVisited();
         foreach ($commands as $command) {
-            $this->executeCommand($command);
+            if ($this->executeCommand($command) === false) {
+                return $this->returnResults();
+            }
         }
 
         return $this->returnResults();
