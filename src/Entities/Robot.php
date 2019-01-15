@@ -138,6 +138,7 @@ class Robot
                 if ($this->room->isCellVisitable($newXposition, $this->currentYPosition)) {
                     --$this->currentXPosition;
                     $this->addCellToVisited();
+                    return true;
                 } else {
                     return false;
                 }
@@ -147,6 +148,7 @@ class Robot
                 if ($this->room->isCellVisitable($newXposition, $this->currentYPosition)) {
                     --$this->currentXPosition;
                     $this->addCellToVisited();
+                    return true;
                 } else {
                     return false;
                 }
@@ -156,6 +158,7 @@ class Robot
                 if ($this->room->isCellVisitable($this->currentXPosition, $newYposition)) {
                     --$this->currentYPosition;
                     $this->addCellToVisited();
+                    return true;
                 } else {
                     return false;
                 }
@@ -165,6 +168,7 @@ class Robot
                 if ($this->room->isCellVisitable($this->currentXPosition, $newYposition)) {
                     ++$this->currentYPosition;
                     $this->addCellToVisited();
+                    return true;
                 } else {
                     return false;
                 }
@@ -180,6 +184,7 @@ class Robot
         $status = true;
         // start with the first set
         foreach ($strategySteps as $command) {
+            $breakStatus = false;
             if ($this->checkIfEnoughBatteryForCommand($command)) {
                 switch ($command) {
                     case 'TL':
@@ -194,6 +199,7 @@ class Robot
                             break;
                         } else {
                             $status = false;
+                            $breakStatus = true;
                         }
                         break;
                     case 'B':
@@ -202,6 +208,7 @@ class Robot
                               break;
                           } else {
                               $status = false;
+                              $breakStatus = true;
                           }
                         break;
                     case 'C':
@@ -212,7 +219,9 @@ class Robot
             } else {
                 break;
             }
+            if ($breakStatus === true) break;
         }
+
 
         return $status;
     }
