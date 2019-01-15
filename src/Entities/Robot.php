@@ -262,7 +262,7 @@ class Robot
             return true;
 
         } else {
-            die('battery off');
+            return false;
         }
 
     }
