@@ -12,30 +12,12 @@ class Robot
 
     public $battery;
 
-    public $costOfOperation;
+    private $costOfOperation;
 
     private $backoffStrategy;
 
     private $executionResult = [];
 
-    public function __construct()
-    {
-        $this->costOfOperation = [
-            'TR' => 1,
-            'TL' => 1,
-            'A'  => 2,
-            'B'  => 3,
-            'C'  => 5
-        ];
-
-        $this->backoffStrategy = [
-            ['TR', 'A'],
-            ['TL', 'B', 'TR', 'A'],
-            ['TL', 'TL', 'A'],
-            ['TR', 'B', 'TR', 'A'],
-            ['TL', 'TL', 'A'],
-        ];
-    }
 
     public function setCostOfOperation(array $costOfOperation)
     {
@@ -47,9 +29,9 @@ class Robot
         return $this->costOfOperation;
     }
 
-    public function setBackOffStrategy(array $backOffStrategy)
+    public function setBackOffStrategy(array $backoffStrategy)
     {
-        $this->backOffStrategy = $backOffStrategy;
+        $this->backoffStrategy = $backoffStrategy;
     }
 
     public function getBackOffStrategy()

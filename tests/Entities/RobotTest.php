@@ -6,23 +6,45 @@ use MyQRoomba\Entities\Room;
 
 class RobotTest extends TestCase
 {
-    public function testThatCommandFailsIfBatteryIsNotEnough()
+
+    private function initializeRobot()
     {
         $robot = new Robot();
+        $robot->setCostOfOperation([
+            'TR' => 1,
+            'TL' => 1,
+            'A'  => 2,
+            'B'  => 3,
+            'C'  => 5
+        ]);
+
+        $robot->setBackOffStrategy([
+            ['TR', 'A'],
+            ['TL', 'B', 'TR', 'A'],
+            ['TL', 'TL', 'A'],
+            ['TR', 'B', 'TR', 'A'],
+            ['TL', 'TL', 'A'],
+        ]);
+        return $robot;
+    }
+
+    public function testThatCommandFailsIfBatteryIsNotEnough()
+    {
+        $robot = $this->initializeRobot();
         $robot->battery = 2;
         $this->assertFalse($robot->checkIfEnoughBatteryForCommand('C'));
     }
 
     public function testThatCommandSucceedsIfBatteryIsEnough()
     {
-        $robot = new Robot();
+        $robot = $this->initializeRobot();
         $robot->battery = 23;
         $this->assertTrue($robot->checkIfEnoughBatteryForCommand('C'));
     }
 
     public function testThatSeriesOfCommandsAreDrainingTheBatteryCorrectly()
     {
-        $robot = new Robot();
+        $robot = $this->initializeRobot();
         $room =  $this->getMockBuilder(Room::class)
             ->setMethods()
             ->getMock();
@@ -47,7 +69,7 @@ class RobotTest extends TestCase
 
     public function testThatBackMakesTheRobotGoBackWhenNoObstacle()
     {
-        $robot = new Robot();
+        $robot = $this->initializeRobot();
         $room =  $this->getMockBuilder(Room::class)
             ->setMethods()
             ->getMock();

@@ -33,6 +33,21 @@ class Application
          * MyQRoomba\Entities\Robot;
          */
         $this->robot = $robot;
+        $this->robot->setCostOfOperation([
+            'TR' => 1,
+            'TL' => 1,
+            'A'  => 2,
+            'B'  => 3,
+            'C'  => 5
+        ]);
+
+        $this->robot->setBackOffStrategy([
+            ['TR', 'A'],
+            ['TL', 'B', 'TR', 'A'],
+            ['TL', 'TL', 'A'],
+            ['TR', 'B', 'TR', 'A'],
+            ['TL', 'TL', 'A'],
+        ]);
         //$this->parseInputFile($parser);
     }
 
