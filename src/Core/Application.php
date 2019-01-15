@@ -6,6 +6,7 @@ use MyQRoomba\Entities\Room;
 use MyQRoomba\Entities\Robot;
 use MyQRoomba\Libs\JSONFileWriter;
 use MyQRoomba\Libs\OutputFileWriter;
+use MyQRoomba\Libs\ArrayTransposer;
 
 
 class Application
@@ -38,7 +39,7 @@ class Application
     public function run()
     {
         $data = $this->parser->analyzeInputFile($this->inputFile);
-        $this->room->setMatrix($this->transposeData($data->map));
+        $this->room->setMatrix(ArrayTransposer::transposeArray($data->map));
         $this->robot->setRoom($this->room);
         $commands = $data->commands;
 

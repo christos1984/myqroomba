@@ -37,6 +37,26 @@ class Robot
         ];
     }
 
+    public function setCostOfOperation(array $costOfOperation)
+    {
+        $this->costOfOperation = $costOfOperation;
+    }
+
+    public function getCostOfOperation()
+    {
+        return $this->costOfOperation;
+    }
+
+    public function setBackOffStrategy(array $backOffStrategy)
+    {
+        $this->backOffStrategy = $backOffStrategy;
+    }
+
+    public function getBackOffStrategy()
+    {
+        return $this->backOffStrategy;
+    }
+
 
 
     public function setRoom($room)
@@ -135,7 +155,7 @@ class Robot
     }
 
 
-    public function back(string $direction)
+    private function back(string $direction)
     {
         switch ($direction) {
             case 'E':
