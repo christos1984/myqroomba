@@ -13,6 +13,7 @@ class ArrayTransposer
                 $retData[$row2][$row] = $column2;
             }
         }
+
         return $retData;
     }
 }

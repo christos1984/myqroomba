@@ -3,6 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use MyQRoomba\Entities\Robot;
 use MyQRoomba\Entities\Room;
+use MyQRoomba\Libs\ArrayTransposer;
 
 class RobotTest extends TestCase
 {
@@ -49,12 +50,12 @@ class RobotTest extends TestCase
             ->setMethods()
             ->getMock();
 
-        $room->setMatrix([
+        $room->setMatrix(ArrayTransposer::transposeArray([
             ["S", "S", "S", "S"],
             ["S", "S", "C", "S"],
             ["S", "S", "S", "S"],
             ["S", "null", "S", "S"]
-          ]);
+            ]));
 
         $robot->setRoom($room);
         $robot->battery = 80;
@@ -74,20 +75,24 @@ class RobotTest extends TestCase
             ->setMethods()
             ->getMock();
 
-        $room->setMatrix([
+        $robot->setBackOffStrategy([
+                ['B', 'TR', 'A']
+        ]);
+        $room->setMatrix(ArrayTransposer::transposeArray([
             ["S", "S", "S", "S"],
             ["S", "S", "C", "S"],
             ["S", "S", "S", "S"],
             ["S", "null", "S", "S"]
-          ]);
+          ]));
 
         $robot->setRoom($room);
         $robot->battery = 80;
-        $robot->currentDirection = "N";
-        $robot->currentXPosition = "3";
-        $robot->currentYPosition = "0";
+        $robot->currentDirection = "E";
+        $robot->currentXPosition = "1";
+        $robot->currentYPosition = "1";
+        $robot->executeCommandSequence([ "A", "C"]);
 
-        //$this->assertEquals("E", $robot->changeDirection("TR"));
+        $this->assertEquals(true, $robot->isCellVisited('0', '1'));
 
 
     }

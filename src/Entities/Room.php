@@ -7,12 +7,13 @@ class Room
     private $matrix;
 
     const CLEANABLE = 'S';
-    const WALL      = "null";
-    const COLUMN    = 'C';
+    const WALL = 'null';
+    const COLUMN = 'C';
 
     public function setMatrix($matrix)
     {
         $this->matrix = $matrix;
+
         return $this;
     }
 
@@ -23,15 +24,14 @@ class Room
 
     public function isCellVisitable(string $dimensionX, string $dimensionY)
     {
-        if (isset($this->matrix["$dimensionX"]["$dimensionY"]))
-        {
-            if (($this->matrix["$dimensionX"]["$dimensionY"] !== self::WALL) && ($this->matrix["$dimensionX"]["$dimensionY"] !== self::COLUMN))
-            {
+        if (isset($this->matrix["$dimensionX"]["$dimensionY"])) {
+            if ((self::WALL !== $this->matrix["$dimensionX"]["$dimensionY"]) && (self::COLUMN !== $this->matrix["$dimensionX"]["$dimensionY"])) {
                 return true;
+            } else {
+                return false;
             }
-            else return false;
+        } else {
+            return false;
         }
-        else return false;
     }
-
 }

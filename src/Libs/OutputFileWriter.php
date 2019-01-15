@@ -1,4 +1,5 @@
 <?php
+
 namespace MyQRoomba\Libs;
 
 abstract class OutputFileWriter

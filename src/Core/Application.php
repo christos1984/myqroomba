@@ -1,13 +1,12 @@
 <?php
+
 namespace MyQRoomba\Core;
 
 use MyQRoomba\Libs\InputFileParser;
 use MyQRoomba\Entities\Room;
 use MyQRoomba\Entities\Robot;
-use MyQRoomba\Libs\JSONFileWriter;
 use MyQRoomba\Libs\OutputFileWriter;
 use MyQRoomba\Libs\ArrayTransposer;
-
 
 class Application
 {
@@ -27,18 +26,18 @@ class Application
         $this->outputFile = $outputFile;
         $this->parser = $parser;
         $this->room = $room;
-        $this->fileWriter= $fileWriter;
+        $this->fileWriter = $fileWriter;
 
-        /**
+        /*
          * MyQRoomba\Entities\Robot;
          */
         $this->robot = $robot;
         $this->robot->setCostOfOperation([
             'TR' => 1,
             'TL' => 1,
-            'A'  => 2,
-            'B'  => 3,
-            'C'  => 5
+            'A' => 2,
+            'B' => 3,
+            'C' => 5,
         ]);
 
         $this->robot->setBackOffStrategy([
@@ -64,31 +63,8 @@ class Application
 
         $this->robot->battery = $data->battery;
 
-
         $result = $this->robot->executeCommandSequence($commands);
 
         $this->fileWriter->write($this->outputFile, $result);
-
-
-
-
     }
-
-    private function transposeData(array $array)
-    {
-        $retData = array();
-
-        foreach ($array as $row => $columns) {
-            foreach ($columns as $row2 => $column2) {
-                $retData[$row2][$row] = $column2;
-            }
-        }
-        return $retData;
-    }
-
-
-
-
-
 }
-
