@@ -9,7 +9,6 @@ namespace MyQRoomba\Libs;
  * there is just one abstract method write() that defines the action
  * of writing data to file.
  *
- *
  * @author Christos Patsatzis
  */
 abstract class OutputFileWriter
