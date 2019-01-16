@@ -11,3 +11,5 @@ Robot is build using PHP 7.2 so you are going to need this binary installed in y
 If you don't have PHP installed and you don't want to install it or you have a different version installed - worry not; You can use docker to run it (provided that you have it installed as well)
 
 `docker run -it --rm --name=myqroomba -v "$PWD":/usr/src/myapp -w /usr/src/myapp php:7.2-cli php cleaning_robot.php <source.json> <result.json>`
+
+Note: Yes, vendor folder should be not included in the repo. Since it is a test app though and the vendor libs folder is tiny, it is included for convenience.

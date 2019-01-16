@@ -486,23 +486,31 @@ class Robot
 
     /**
      * Method to add the current cell to visited ones in the internal array of the robot
+     *
+     * @return bool
      */
     public function addCellToVisited()
     {
         if (!$this->isCellVisited($this->currentXPosition, $this->currentYPosition)) {
             $this->executionResult['visited'][] = ['X' => $this->currentXPosition, 'Y' => $this->currentYPosition];
+            return true;
         }
+        else return false;
     }
 
 
     /**
      * Method to add the current cell to cleaned ones in the internal array of the robot
+     *
+     * @return bool
      */
     public function addCellToCleaned()
     {
         if (!$this->isCellCleaned($this->currentXPosition, $this->currentYPosition)) {
             $this->executionResult['cleaned'][] = ['X' => $this->currentXPosition, 'Y' => $this->currentYPosition];
+            return true;
         }
+        else return false;
     }
 
     /**
