@@ -11,6 +11,14 @@ namespace MyQRoomba\Libs;
  */
 class InputFileParser
 {
+
+    /**
+     * Analyzes a given file and determine if is it valid to be loaded into the robot.
+     *
+     * @param string $filename Name of the file
+     *
+     * @return bool
+     */
     public function analyzeInputFile(string $filename)
     {
         if (file_exists($filename)) {
@@ -47,6 +55,13 @@ class InputFileParser
         }
     }
 
+    /**
+     * Helper function to determine if a string is valid JSON
+     *
+     * @param string $string The string to be validated
+     *
+     * @return bool
+     */
     public function isJson(string $string)
     {
         json_decode($string);
